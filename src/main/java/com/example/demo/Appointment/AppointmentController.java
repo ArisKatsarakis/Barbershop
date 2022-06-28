@@ -1,9 +1,7 @@
 package com.example.demo.Appointment;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,7 +18,12 @@ public class AppointmentController {
     }
     @GetMapping
     public List<Appointment> getStudents() {
-        return AppointmentService.getAppointments();
+        return appService.getAppointments();
+    }
+
+    @PostMapping
+    public void makeNewAppointment(@RequestBody Appointment appointment){
+        appService.addNewAppointment(appointment);
     }
 
 }

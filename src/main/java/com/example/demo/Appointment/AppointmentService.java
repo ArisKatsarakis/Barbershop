@@ -1,19 +1,36 @@
 package com.example.demo.Appointment;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
+    private final AppointmentRepository appointmentRepository;
 
-    public static  List<Appointment> getAppointments(){
-        return List.of(
-                new Appointment(1l,1l, LocalDate.of(2022,6,10), LocalTime.of(9,30),"Mousia","Antonis" )
-        );
+    @Autowired
+    public AppointmentService(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
+    }
+
+
+    public  List<Appointment> getAppointments(){
+        return appointmentRepository.findAll();
+    }
+
+    public void addNewAppointment(Appointment appointment) {
+        //Set option to find Appointments by username and email
+        // So that we configure the date that the user wants the appointment
+        // This is a basic implementantion
+        Optional<Appointment> AppointmentByUsername =
+                appointmentRepository.findAppointmentByUsername(appointment.getUsername());
+        if (AppointmentByUsername.isPresent()){
+            throw  new IllegalStateException("Appointment Taken");
+
+        }
+        appointmentRepository.save(appointment);
+
     }
 }
