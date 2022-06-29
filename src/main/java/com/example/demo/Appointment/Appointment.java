@@ -6,6 +6,8 @@ import java.time.LocalTime;
 @Entity
 @Table
 
+//Create state taken , open;
+
 public class Appointment {
     @Id
     @SequenceGenerator(

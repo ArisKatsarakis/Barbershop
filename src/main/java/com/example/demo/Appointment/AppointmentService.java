@@ -26,7 +26,9 @@ public class AppointmentService {
         // This is a basic implementantion
         Optional<Appointment> AppointmentByUsername =
                 appointmentRepository.findAppointmentByUsername(appointment.getUsername());
-        if (AppointmentByUsername.isPresent()){
+        Optional<Appointment> AppointmentByEmail  =
+                appointmentRepository.findAppointmentByDate(appointment.getDate());
+        if (AppointmentByUsername.isPresent() && AppointmentByEmail.isPresent()){
             throw  new IllegalStateException("Appointment Taken");
 
         }
