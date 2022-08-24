@@ -24,6 +24,12 @@ public class AppointmentController {
     @PostMapping
     public void makeNewAppointment(@RequestBody Appointment appointment){
         appService.addNewAppointment(appointment);
+
+    }
+
+    @DeleteMapping
+    public void deleteAppointment(@RequestBody Appointment app){
+        appService.deleteAppointment(app);
     }
 
 }

@@ -26,13 +26,19 @@ public class AppointmentService {
         // This is a basic implementantion
         Optional<Appointment> AppointmentByUsername =
                 appointmentRepository.findAppointmentByUsername(appointment.getUsername());
-        Optional<Appointment> AppointmentByEmail  =
-                appointmentRepository.findAppointmentByDate(appointment.getDate());
-        if (AppointmentByUsername.isPresent() && AppointmentByEmail.isPresent()){
+
+        if (AppointmentByUsername.isPresent()){
             throw  new IllegalStateException("Appointment Taken");
 
         }
         appointmentRepository.save(appointment);
 
+    }
+    public void deleteAppointment(Appointment appointment){
+        Optional<Appointment> appfind = appointmentRepository.findAppointmentByUsername(appointment.getUsername());
+        if(appfind.isPresent()){
+            throw new IllegalStateException("Appointment Not Found ! ");
+        }
+        appointmentRepository.delete(appointment);
     }
 }
