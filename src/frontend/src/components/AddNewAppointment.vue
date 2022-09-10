@@ -24,13 +24,13 @@
       </b-form-group>
       <b-form-group>
         <label class="sm-2" for="time">Time Slot</label>
-        <b-form-timepicker
-          id="time"
-          v-model="form.time"
-          value ='10:30'
+        <b-time
+        v-bind:value="setTime"
+
         >
 
-        </b-form-timepicker>
+
+        </b-time>
         <p>Your time slot is {{form.time}}</p>
       </b-form-group>
       <b-form-group>
@@ -57,12 +57,16 @@
 import  axios from 'axios';
 export default {
   name: "AddNewAppointment",
+  props: {
+    setTime: String,
+    setDate: new Date()
+  },
   data() {
     return {
       form: {
         username: '',
-        date: '',
-        time: '',
+        date: this.setDate,
+        time: this.setTime,
         type: ''
       },
       types: [{ text: "Select one" , value:  null} , "Mousia", "Malli" , "Malli  + Mousia"]

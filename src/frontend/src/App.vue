@@ -1,13 +1,17 @@
 <template>
-<dash-board></dash-board>
+
+
+  <AppointmentTable>
+
+  </AppointmentTable>
 </template>
 
 <script>
-import DashBoard from "@/components/DashBoard";
+import AppointmentTable from "@/components/AppointmentTable";
 export default {
   name: 'App',
   components: {
-    DashBoard,
+    AppointmentTable
 
   },
   data() {
