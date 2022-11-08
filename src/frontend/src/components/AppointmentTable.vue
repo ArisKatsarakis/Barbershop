@@ -44,7 +44,7 @@
 
           </template>
           <template #cell(Andreas)="data">
-            <buttoon-appointment
+            <buttoon-appointment style="text-align: center"
                 v-if="! data.value.name"
                 v-bind:timeslot ="items[data.index].Hours"
                 v-bind:set_Date="value"
