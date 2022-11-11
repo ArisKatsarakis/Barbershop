@@ -22,7 +22,6 @@ public class AppointmentService {
 
     public void addNewAppointment(Appointment appointment) {
         appointmentRepository.save(appointment);
-
     }
     public List<Appointment> getAppointByUsername(String username){
        return appointmentRepository.findByUsername(username);
