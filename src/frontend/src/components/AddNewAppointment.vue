@@ -82,7 +82,8 @@ export default {
       //   headers:{"Content-Type" : 'application-json' ,
       //   "Access-Control-Allow-Origin" : "*"},
       //   body: JSON.stringify(this.form)
-      // };
+      // }
+      console.log(data);
       axios.post('api/v1/appointment',this.form)
       .then((res) => {
         alert(res);

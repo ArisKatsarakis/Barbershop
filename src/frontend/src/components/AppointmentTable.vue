@@ -3,7 +3,7 @@
     <b-row align-h="between" class="shadow" style="margin-bottom: 10px;">
       <b-col align-self="start" cols="4">
         <label for="example-datepicker">Choose a date</label>
-        <b-form-datepicker id="example-datepicker" v-model="this.value" v-bind:value="this.value" class="mb-2"></b-form-datepicker>
+        <b-form-datepicker @input="getDate()" id="example-datepicker" v-model="calendarDate" v-bind:value="value" class="mb-2"></b-form-datepicker>
       </b-col>
       <b-col cols="4">
 
@@ -74,6 +74,7 @@
 
 <script>
 import buttoonAppointment from "@/components/ButtoonAppointment";
+import axios from "axios";
 export default {
   name: "AppointmentTable",
   components:{
@@ -81,6 +82,7 @@ export default {
   },
   data() {
     return {
+        calendarDate: null,
         items: [
           { Hours: '09:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
           { Hours: '10:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
@@ -99,7 +101,7 @@ export default {
           { Hours: '19:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
           { Hours: '19:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
           { Hours: '20:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
-          { Hours: '20:30', Mixalis: {name: "Kostas", type: "Mousia"}, Andreas: {name: null, type: null} },
+          { Hours: '20:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
           { Hours: '21:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
 
         ],
@@ -120,6 +122,34 @@ export default {
     }
   },
   methods: {
+    getAppointmentsByDate(dateString) {
+      const body = {
+        date: dateString
+      }
+      let appointments;
+      axios.post('http://localhost:8080/api/v1/appointment/date',body)
+          .then(response => response.data)
+          .then(data => {
+            console.log(data);
+            appointments = data;
+            this.cleanItems();
+            for (let index in this.items) {
+              for (let dataKey in appointments) {
+                if (appointments[dataKey].time == this.items[index].Hours + ":00"){
+                  if(this.items[index].Mixalis.name == null){
+                    this.items[index].Mixalis.name = appointments[dataKey].username;
+                    this.items[index].Mixalis.type = appointments[dataKey].type;
+                  }else if(this.items[index].Andreas.name == null){
+                    this.items[index].Andreas.name = appointments[dataKey].username;
+                    this.items[index].Andreas.type = appointments[dataKey].type;
+                  }
+                }
+              }
+            }
+
+          })
+
+    },
     get(){
        var appointments;
 
@@ -128,6 +158,7 @@ export default {
           .then((data) => {
             // console.log(data);
             appointments = data;
+            this.cleanItems();
             for (let index in this.items) {
               for (let dataKey in appointments) {
                 console.log(appointments[dataKey]);
@@ -150,6 +181,7 @@ export default {
     },
     today(){
       this.value=new Date();
+      this.calendarDate = this.value;
     },
     next(){
       var new_date = this.value;
@@ -161,7 +193,37 @@ export default {
 
       this.value.setDate( this.value.getDate() -1 );
       console.log(this.value);
+    },
+    getDate(){
+      // console.log(this.calendarDate);
+      this.value = new Date(this.calendarDate);
+      this.getAppointmentsByDate(this.calendarDate);
+    },
+    cleanItems(){
+      this.items = [
+        { Hours: '09:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '10:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '10:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '11:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '11:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '12:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '12:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '13:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '13:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '14:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '17:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '17:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '18:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '18:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '19:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '19:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '20:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '20:30', Mixalis: {name:  null, type: null}, Andreas: {name: null, type: null} },
+        { Hours: '21:00', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+      ]
     }
+
+
   }
 }
 </script>
