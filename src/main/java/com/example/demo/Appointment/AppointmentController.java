@@ -39,7 +39,6 @@ public class AppointmentController {
     public List<Appointment> getAppointmentByUsername(@PathVariable("username") String username){
         System.out.println(username);
         return appService.getAppointByUsername(username);
-        //This is a Test for branching
     }
 
     @CrossOrigin
