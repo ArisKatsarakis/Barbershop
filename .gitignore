@@ -35,3 +35,6 @@ build/
 #### appointmentcofing ###
 AppointmentConfig.java
 
+## frontend# 
+/src/frontend/node
+/src/frotend/node_modules
