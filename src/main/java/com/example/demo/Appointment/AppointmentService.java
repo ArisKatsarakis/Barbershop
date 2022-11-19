@@ -30,4 +30,24 @@ public class AppointmentService {
     public List<Appointment> getAppointmentBydate(LocalDate newDate) {
         return appointmentRepository.findbyDate(newDate);
     }
+
+    public Optional<Appointment> updateAppointment(long appointmentId, Appointment updatedAppointment) {
+        return appointmentRepository.findById(appointmentId).map(
+                appointment1 -> {
+                    if(updatedAppointment.getDate() != null){
+                        appointment1.setDate(updatedAppointment.getDate());
+                    }
+                    if(updatedAppointment.getUsername() != null){
+                        appointment1.setUsername(updatedAppointment.getUsername());
+                    }
+                    if(updatedAppointment.getTime() != null){
+                        appointment1.setTime(updatedAppointment.getTime());
+                    }
+                    if(updatedAppointment.getType() != null){
+                        appointment1.setType(updatedAppointment.getType());
+                    }
+                    return appointmentRepository.save(appointment1);
+                }
+        );
+    }
 }

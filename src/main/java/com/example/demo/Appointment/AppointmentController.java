@@ -24,10 +24,15 @@ public class AppointmentController {
         return appService.getAppointments();
     }
 
-    @PostMapping
+    @PostMapping("/appointment")
     public void makeNewAppointment(@RequestBody Appointment appointment){
         appService.addNewAppointment(appointment);
 
+    }
+
+    @PutMapping("/appointment/{id}")
+    public Optional<Appointment> updateAppointment(@PathVariable("id") long appointmentId , @RequestBody Appointment appointment){
+        return appService.updateAppointment(appointmentId,appointment);
     }
 
     @GetMapping( path = "appointment/{username}")

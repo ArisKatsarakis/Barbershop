@@ -22,6 +22,7 @@ public class Barber {
     )
     private long id;
     private String name;
+    private long Appid;
 
     public long getId() {
         return id;
