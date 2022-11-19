@@ -44,7 +44,6 @@ public class AppointmentController {
     @CrossOrigin
     @PostMapping(path = "appointment/date")
     public List<Appointment> getAppointmentByDate(@RequestBody Appointment appointment){
-
         return appService.getAppointmentBydate(appointment.getDate());
     }
 
