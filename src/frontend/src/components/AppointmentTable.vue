@@ -127,7 +127,7 @@ export default {
         date: dateString
       }
       let appointments;
-      axios.post('http://localhost:8080/api/v1/appointment/date',body)
+      axios.post('/api/v1/appointment/date',body)
           .then(response => response.data)
           .then(data => {
             console.log(data);
