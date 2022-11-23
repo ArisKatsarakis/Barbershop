@@ -54,12 +54,11 @@
 </template>
 
 <script>
-import  axios from 'axios';
 export default {
   name: "AddNewAppointment",
   props: {
     setTime: String,
-    setDate: new Date()
+    setDate: String
   },
   data() {
     return {
@@ -75,19 +74,10 @@ export default {
   methods: {
     onSubmit(event){
       event.preventDefault();
-      const data = JSON.stringify(this.form);
-      alert(data);
-      // const requestopts = {
-      //   method: "POST",
-      //   headers:{"Content-Type" : 'application-json' ,
-      //   "Access-Control-Allow-Origin" : "*"},
-      //   body: JSON.stringify(this.form)
-      // }
-      console.log(data);
-      axios.post('api/v1/appointment',this.form)
-      .then((res) => {
-        alert(res);
-      });
+      this.$emit('update-app', JSON.stringify(this.form));
+
+      // console.log(data);
+      //
     }
   }
 
