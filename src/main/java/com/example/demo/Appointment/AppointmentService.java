@@ -50,4 +50,10 @@ public class AppointmentService {
                 }
         );
     }
+
+    public Optional<Appointment> deleteAppoitnmentById(long appointmentId) {
+       Optional<Appointment>  findAppointment = appointmentRepository.findById(appointmentId);
+        appointmentRepository.delete(findAppointment.get());
+        return  findAppointment;
+    }
 }

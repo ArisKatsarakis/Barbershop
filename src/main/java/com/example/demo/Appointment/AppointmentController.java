@@ -58,4 +58,9 @@ public class AppointmentController {
     public void newBarber(@RequestBody Barber barber){
         barberService.addNewBarber(barber);
     }
+
+    @DeleteMapping("appointment/delete/{id}")
+    public Optional<Appointment> deletAppointmentById(@PathVariable("id") long appointmentId){
+        return appService.deleteAppoitnmentById(appointmentId);
+    }
 }
