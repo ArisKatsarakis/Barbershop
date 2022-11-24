@@ -21,7 +21,7 @@ public class Appointment {
             generator = "appointment_sequence"
     )
     private Long id;
-    private Long Userid;
+    private Long barberId;
     private LocalDate date;
     private LocalTime time;
     private String type;
@@ -32,7 +32,7 @@ public class Appointment {
 
     public Appointment(Long id, Long userid, LocalDate date, LocalTime time, String type, String username) {
         this.id = id;
-        Userid = userid;
+        this.barberId = userid;
         this.date = date;
         this.time = time;
         this.type = type;
@@ -40,7 +40,7 @@ public class Appointment {
     }
 
     public Appointment(Long userid, LocalDate date, LocalTime time, String type, String username) {
-        Userid = userid;
+        this.barberId = userid;
         this.date = date;
         this.time = time;
         this.type = type;
@@ -55,12 +55,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public Long getUserid() {
-        return Userid;
+    public Long getBarberId() {
+        return barberId;
     }
 
-    public void setUserid(Long userid) {
-        Userid = userid;
+    public void setBarberId(Long barberId) {
+        this.barberId = barberId;
     }
 
     public LocalDate getDate() {
@@ -99,7 +99,7 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", Userid=" + Userid +
+                ", barberId=" + barberId +
                 ", date=" + date +
                 ", time=" + time +
                 ", type='" + type + '\'' +
