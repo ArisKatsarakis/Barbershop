@@ -15,17 +15,7 @@ export default {
 
   },
   data() {
-    return {
-      msg: "Test",
-    }
   },
-  mounted() {
-    fetch("/api/v1/appointment")
-    .then((response) => response.text())
-    .then( (data) => {
-      this.msg = data;
-    });
-  }
 }
 </script>
 

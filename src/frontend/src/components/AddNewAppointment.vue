@@ -58,7 +58,7 @@ export default {
   name: "AddNewAppointment",
   props: {
     setTime: String,
-    setDate: String
+    setDate: Date
   },
   data() {
     return {
@@ -72,8 +72,8 @@ export default {
     }
   },
   methods: {
-    onSubmit(event){
-      event.preventDefault();
+    onSubmit(){
+
       this.$emit('update-app', JSON.stringify(this.form));
 
       // console.log(data);

@@ -56,4 +56,9 @@ public class AppointmentService {
         appointmentRepository.delete(findAppointment.get());
         return  findAppointment;
     }
+
+    public List<Appointment> getAppointmentsByBarber(long barberID) {
+
+        return appointmentRepository.getAppointmentByBarber(barberID);
+    }
 }

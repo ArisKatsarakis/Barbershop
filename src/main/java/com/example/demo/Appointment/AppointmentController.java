@@ -63,4 +63,9 @@ public class AppointmentController {
     public Optional<Appointment> deletAppointmentById(@PathVariable("id") long appointmentId){
         return appService.deleteAppoitnmentById(appointmentId);
     }
+    @CrossOrigin
+    @GetMapping("appointments/barber/{id}")
+    public List<Appointment> getAppointmentsByBarber(@PathVariable("id") long barberID){
+        return appService.getAppointmentsByBarber(barberID);
+    }
 }
