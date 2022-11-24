@@ -58,7 +58,8 @@ export default {
   name: "AddNewAppointment",
   props: {
     setTime: String,
-    setDate: String
+    setDate: String,
+    setBarber:Number
   },
   data() {
     return {
@@ -66,7 +67,8 @@ export default {
         username: '',
         date: this.setDate,
         time: this.setTime,
-        type: ''
+        type: '',
+        barberId:this.setBarber
       },
       types: [{ text: "Select one" , value:  null} , "Mousia", "Malli" , "Malli  + Mousia"]
     }

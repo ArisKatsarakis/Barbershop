@@ -31,9 +31,10 @@
               <button-appointment
                   v-if="!data.value.name"
                   @update-app="addNewAppointment"
-                  v-bind:barber="'Mixalis'"
+                  v-bind:barber=1
                   v-bind:timeslot="items[data.index].Hours"
-                  v-bind:set_-date="value.toString()"
+                  v-bind:set-Date="value.toString()"
+
               >
 
               </button-appointment>
@@ -45,7 +46,7 @@
                   v-bind:date="data.date"
                   v-bind:barber="'Mixalis'"
                   v-bind:type="data.value.type"
-                  v-bind:id="parseInt(data.value.id)"
+                  v-bind:id="parseInt(data.value.apointid)"
                   @on-delete="deleteAppointmentById"
                 >
 
@@ -58,13 +59,24 @@
                 v-if="!data.value.name"
                 v-bind:timeslot ="items[data.index].Hours"
                 v-bind:set_Date="value.toString()"
-                v-bind:barber="'Andreas'"
+                v-bind:barber=2
+                                @update-app="addNewAppointment"
+
             >
 
             </button-appointment>
             <div v-else  style="text-align: center">
-              <span style="background-color: black; color: whitesmoke" > Name: {{ data.value.name }}</span>
-              <span style="background-color: greenyellow; color: whitesmoke"> Type: {{ data.value.type }}</span>
+              <appointment-container
+                  v-bind:username="data.value.name"
+                  v-bind:time="items[data.index].Hours"
+                  v-bind:date="data.date"
+                  v-bind:barber="'Andreas'"
+                  v-bind:type="data.value.type"
+                  v-bind:id="parseInt(data.value.apointid)"
+                  @on-delete="deleteAppointmentById"
+              >
+
+              </appointment-container>
             </div>
 
           </template>
@@ -96,7 +108,7 @@ export default {
     return {
         calendarDate: null,
         items: [
-          { Hours: '09:30', Mixalis: {name: null, type: null}, Andreas: {name: null, type: null} },
+          { Hours: '09:30', Mixalis: {name: null, type: null,}, Andreas: {name: null, type: null} },
           { Hours: '10:00',  },
           { Hours: '10:30',  },
           { Hours: '11:00',  },
@@ -175,11 +187,11 @@ export default {
             for (let index in this.items) {
               for (let dataKey in appointments) {
                 if (appointments[dataKey].time == this.items[index].Hours + ":00") {
-                  if (this.items[index].Mixalis.name == null) {
+                  if (appointments[dataKey].barberId == 1) {
                     this.items[index].Mixalis.name = appointments[dataKey].username;
                     this.items[index].Mixalis.type = appointments[dataKey].type;
                     this.items[index].Mixalis.appointid = appointments[dataKey].id;
-                  } else if (this.items[index].Andreas.name == null) {
+                  } else if (appointments[dataKey].barberId == 2) {
                     this.items[index].Andreas.name = appointments[dataKey].username;
                     this.items[index].Andreas.type = appointments[dataKey].type;
                     this.items[index].Mixalis.appointid = appointments[dataKey].id;
@@ -231,7 +243,6 @@ export default {
       this.value = new_date;
     },
     prev(){
-
       this.value.setDate( this.value.getDate() -1 );
       console.log(this.value);
     },
@@ -243,8 +254,8 @@ export default {
     cleanItems(){
 
       for (let i = 0; i < this.items.length; i++) {
-        this.items[i].Mixalis = { name: null , type:null , id:null};
-        this.items[i].Andreas = { name: null , type:null , id:null};
+        this.items[i].Mixalis = { name: null , type:null , apointid:null};
+        this.items[i].Andreas = { name: null , type:null , apointid:null};
       }
     },
     fetchByDateApiCall(dateString){
@@ -260,11 +271,11 @@ export default {
       for (let index in this.items) {
         for (let dataKey in appointments) {
           if (appointments[dataKey].time == this.items[index].Hours + ":00") {
-            if (this.items[index].Mixalis.name == null) {
+            if (appointments[dataKey].barberId === 1) {
               this.items[index].Mixalis.name = appointments[dataKey].username;
               this.items[index].Mixalis.type = appointments[dataKey].type;
               this.items[index].Mixalis.id = appointments[dataKey].id;
-            } else if (this.items[index].Andreas.name == null) {
+            } else if (appointments[dataKey].barberId === 2) {
               this.items[index].Andreas.name = appointments[dataKey].username;
               this.items[index].Andreas.type = appointments[dataKey].type;
               this.items[index].Andreas.id = appointments[dataKey].id;

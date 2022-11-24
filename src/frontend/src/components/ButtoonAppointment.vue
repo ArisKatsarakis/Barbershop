@@ -7,6 +7,7 @@
         <add-new-appointment
           v-bind:set-date="set_Date"
           v-bind:set-time="timeslot"
+          v-bind:set-barber="barber"
           @update-app="returnAppointment"
         />
       </b-modal>
@@ -20,7 +21,7 @@ export default {
   props: {
     timeslot: String,
     set_Date: String,
-    barber: String
+    barber: Number
 
   },
   components: {
@@ -34,6 +35,7 @@ export default {
   },
   methods:{
     returnAppointment(app){
+      this.$bvModal.hide(this.timeslot + this.barber);
       this.$emit('update-app',app)
     }
   }

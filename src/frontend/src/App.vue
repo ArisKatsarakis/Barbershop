@@ -20,11 +20,7 @@ export default {
     }
   },
   mounted() {
-    fetch("/api/v1/appointment")
-    .then((response) => response.text())
-    .then( (data) => {
-      this.msg = data;
-    });
+    console.log("Hello From Vue!")
   }
 }
 </script>
