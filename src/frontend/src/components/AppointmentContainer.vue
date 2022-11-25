@@ -28,16 +28,17 @@
 export default {
   name: "AppointmentContainer",
   props: {
-    username: null,
-    date: null,
-    time: null,
-    barber: null,
-    type: null,
-    id: null
+    username: String,
+    date: String,
+    time: String,
+    barber: String,
+    type: String,
+    id: Number
 
   },
   methods:{
     deleteAppointmentById(id){
+      console.log(id);
       this.$emit('on-delete',id)
 
     }

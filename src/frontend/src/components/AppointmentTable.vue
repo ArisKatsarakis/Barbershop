@@ -3,7 +3,7 @@
     <b-row align-h="between" class="shadow" style="margin-bottom: 10px;">
       <b-col align-self="start" cols="4">
         <label for="example-datepicker">Choose a date</label>
-        <b-form-datepicker @input="getDate()" id="example-datepicker" v-model="calendarDate" v-bind:value="value" class="mb-2"></b-form-datepicker>
+        <b-form-datepicker @input="getDate()" id="example-datepicker" v-model="calendarDate"  class="mb-2" value-as-date></b-form-datepicker>
       </b-col>
       <b-col cols="4">
 
@@ -25,8 +25,12 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table   :items="items"  :fields="fields" class="table-bordered" >
-          <template #table-caption>Date: {{value}}</template>
+        <b-table   :items="items"  :fields="fields" class="table-bordered" caption-top>
+          <template #table-caption>
+            <h1>
+              Date: {{`${calendarDate.toLocaleDateString()}`}}
+            </h1>
+          </template>
           <template #cell(Mixalis)="data">
               <button-appointment
                   v-if="!data.value.name"
@@ -173,7 +177,6 @@ export default {
       return axios.delete("/api/v1/appointment/delete/"+ id.toString());
     },
     async getAppointmentsByDate(dateString) {
-      this.value = dateString;
       const body = {
         date: dateString
       }
@@ -232,22 +235,39 @@ export default {
 
           });
     },
-    today(){
-      this.value=new Date();
+    async today() {
+      this.value = new Date();
       this.calendarDate = this.value;
+      let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() + 1) + "-" + this.value.getDate()
+      let fetchDates = this.fetchByDateApiCall(dateString);
+      await fetchDates.then(response => {
+        this.renderTheTable(response);
+      })
     },
-    next(){
-      var new_date = this.value;
-      console.log(new_date)
+    async next() {
+      let new_date = this.value;
       new_date.setDate(new_date.getDate() + 1);
       this.value = new_date;
+      this.calendarDate.setDate(new_date.getDate())
+      console.log(this.calendarDate);
+      let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() + 1) + "-" + this.value.getDate()
+      let fetchDates = this.fetchByDateApiCall(dateString);
+      await fetchDates.then(response => {
+        this.renderTheTable(response);
+      })
     },
-    prev(){
-      this.value.setDate( this.value.getDate() -1 );
-      console.log(this.value);
+    async prev() {
+      this.value.setDate(this.value.getDate() - 1);
+      this.calendarDate.setDate(this.value.getDate())
+      console.log(this.calendarDate);
+      let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() + 1) + "-" + this.value.getDate()
+      let fetchDates = this.fetchByDateApiCall(dateString);
+      await fetchDates.then(response => {
+        this.renderTheTable(response);
+      })
     },
     getDate(){
-      // console.log(this.calendarDate);
+      console.log(this.calendarDate);
       this.value = new Date(this.calendarDate);
       this.getAppointmentsByDate(this.calendarDate);
     },
@@ -274,16 +294,17 @@ export default {
             if (appointments[dataKey].barberId === 1) {
               this.items[index].Mixalis.name = appointments[dataKey].username;
               this.items[index].Mixalis.type = appointments[dataKey].type;
-              this.items[index].Mixalis.id = appointments[dataKey].id;
+              this.items[index].Mixalis.apointid = appointments[dataKey].id;
             } else if (appointments[dataKey].barberId === 2) {
               this.items[index].Andreas.name = appointments[dataKey].username;
               this.items[index].Andreas.type = appointments[dataKey].type;
-              this.items[index].Andreas.id = appointments[dataKey].id;
+              this.items[index].Andreas.apointid = appointments[dataKey].id;
 
             }
           }
         }
       }
+
     }
 
   },
