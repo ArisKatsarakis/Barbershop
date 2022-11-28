@@ -88,13 +88,7 @@
         </b-table>
       </b-col>
     </b-row>
-    <b-row align-h="end">
-        <b-col cols="4">
-          <b-button @click="get" variant="secondary">
-            Show Appointments
-          </b-button>
-        </b-col>
-    </b-row>
+
   </b-container>
 </template>
 
@@ -144,7 +138,7 @@ export default {
           key:'Andreas'
         }
       ],
-      value: null
+      value: null,
 
 
     }

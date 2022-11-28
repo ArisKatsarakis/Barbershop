@@ -27,6 +27,16 @@ public class Appointment {
     private String type;
     private String Username;
 
+    private Long clientId;
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
     public Appointment() {
     }
 
@@ -95,6 +105,7 @@ public class Appointment {
         Username = username;
     }
 
+
     @Override
     public String toString() {
         return "Appointment{" +
@@ -104,6 +115,7 @@ public class Appointment {
                 ", time=" + time +
                 ", type='" + type + '\'' +
                 ", Username='" + Username + '\'' +
+                ", clientId=" + clientId +
                 '}';
     }
 }

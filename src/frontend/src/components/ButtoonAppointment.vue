@@ -3,14 +3,13 @@
       <b-button  size="sm" @click="$bvModal.show(timeslot + barber)" class="newAppointment" variant="outline-secondary">
         <b-icon icon="plus" aria-hidden="true"></b-icon>
       </b-button>
-      <b-modal size="md"  v-bind:id="timeslot + barber" >
-        <add-new-appointment
-          v-bind:set-date="set_Date"
-          v-bind:set-time="timeslot"
-          v-bind:set-barber="barber"
-          @update-app="returnAppointment"
-        />
-      </b-modal>
+
+    <add-new-appointment
+        v-bind:set-date="set_Date"
+        v-bind:set-time="timeslot"
+        v-bind:set-barber="barber"
+        @update-app="returnAppointment"
+    />
     </div>
 </template>
 
@@ -29,6 +28,7 @@ export default {
   },
   data(){
     return {
+      clients:[]
 
     }
 

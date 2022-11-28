@@ -2,6 +2,9 @@ package com.example.demo.Appointment;
 
 import com.example.demo.barbers.Barber;
 import com.example.demo.barbers.BarberService;
+import com.example.demo.clients.ClientRepository;
+import com.example.demo.clients.ClientService;
+import com.example.demo.clients.Clients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +17,13 @@ import java.util.Optional;
 public class AppointmentController {
     private final AppointmentService appService;
     private final BarberService barberService;
+
+    private final ClientService clientService;
     @Autowired
-    public AppointmentController(AppointmentService appSerivce, BarberService barberService){
+    public AppointmentController(AppointmentService appSerivce, BarberService barberService, ClientService clientService){
         this.barberService = barberService;
         this.appService = appSerivce;
+        this.clientService = clientService;
     }
     @GetMapping
     public List<Appointment> getStudents() {
@@ -62,5 +68,15 @@ public class AppointmentController {
     @DeleteMapping("appointment/delete/{id}")
     public Optional<Appointment> deletAppointmentById(@PathVariable("id") long appointmentId){
         return appService.deleteAppoitnmentById(appointmentId);
+    }
+
+    @PostMapping("client/add")
+    public Clients addNewClient(@RequestBody Clients client){
+        return clientService.addNewClient(client);
+    }
+
+    @GetMapping("client")
+    public List<Clients> getAllClients(){
+        return clientService.getAllClients();
     }
 }
