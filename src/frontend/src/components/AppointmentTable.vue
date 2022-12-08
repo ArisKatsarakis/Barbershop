@@ -161,7 +161,7 @@ export default {
         console.log(response.data.date.toString());
 
       })
-     let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() +1) + "-" + this.value.getDate()
+     let dateString = this.value.getFullYear().toString() + "-" + (this.value.toLocaleString("default",{month: "2-digit"}) ) + "-" + this.value.toLocaleString("default",{day: "2-digit"})
      let fetchDates = this.fetchByDateApiCall( dateString);
      fetchDates.then(response => {
        this.renderTheTable(response);
@@ -232,7 +232,7 @@ export default {
     async today() {
       this.value = new Date();
       this.calendarDate = this.value;
-      let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() + 1) + "-" + this.value.getDate()
+      let dateString = this.value.getFullYear().toString() + "-" + (this.value.toLocaleString("default",{month: "2-digit"}) ) + "-" + this.value.toLocaleString("default",{day: "2-digit"})
       let fetchDates = this.fetchByDateApiCall(dateString);
       await fetchDates.then(response => {
         this.renderTheTable(response);
@@ -244,7 +244,7 @@ export default {
       this.value = new_date;
       this.calendarDate.setDate(new_date.getDate())
       console.log(this.calendarDate);
-      let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() + 1) + "-" + this.value.getDate()
+      let dateString = this.value.getFullYear().toString() + "-" + (this.value.toLocaleString("default",{month: "2-digit"}) ) + "-" + this.value.toLocaleString("default",{day: "2-digit"})
       let fetchDates = this.fetchByDateApiCall(dateString);
       await fetchDates.then(response => {
         this.renderTheTable(response);
@@ -254,7 +254,7 @@ export default {
       this.value.setDate(this.value.getDate() - 1);
       this.calendarDate.setDate(this.value.getDate())
       console.log(this.calendarDate);
-      let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() + 1) + "-" + this.value.getDate()
+      let dateString = this.value.getFullYear().toString() + "-" + (this.value.toLocaleString("default",{month: "2-digit"}) ) + "-" + this.value.toLocaleString("default",{day: "2-digit"})
       let fetchDates = this.fetchByDateApiCall(dateString);
       await fetchDates.then(response => {
         this.renderTheTable(response);
@@ -305,7 +305,7 @@ export default {
   async beforeMount(){
     this.value=new Date();
     this.calendarDate = this.value;
-    let dateString = this.value.getFullYear().toString() + "-" + (this.value.getMonth() +1) + "-" + this.value.getDate()
+    let dateString = this.value.getFullYear().toString() + "-" + (this.value.toLocaleString("default",{month: "2-digit"}) ) + "-" + this.value.toLocaleString("default",{day: "2-digit"})
     let fetchDates = this.fetchByDateApiCall( dateString);
     await fetchDates.then(response => {
       this.renderTheTable(response);

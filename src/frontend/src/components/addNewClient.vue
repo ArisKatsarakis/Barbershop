@@ -67,6 +67,9 @@
 import axios from "axios";
 export default {
   name: "addNewClient",
+  props:{
+    visible: Boolean
+  },
   data() {
     return {
       form: {
