@@ -1,15 +1,13 @@
 <template>
   <div>
     <b-container>
-      <b-navbar type="dark" variant="dark">
+      <b-navbar type="dark" variant="dark" class="justify-content-center">
         <b-navbar-nav>
-          <b-nav-item href="/">Home</b-nav-item>
+          <b-nav-item style="color:lightgreen;" href="/">Home</b-nav-item>
         </b-navbar-nav>
-        <b-navbar-nav class="justify-content-end align-content-end" >
-          <b-nav-item-dropdown text="Tables" right >
-            <b-dropdown-item href="/clients">Clients</b-dropdown-item>
-            <b-dropdown-item href="#">Settings</b-dropdown-item>
-          </b-nav-item-dropdown>
+        <b-navbar-nav class="justify-content-end"  style="margin-left: 10px">
+          <b-nav-item href="/clients">Clients</b-nav-item>
+
         </b-navbar-nav>
       </b-navbar>
     </b-container>
