@@ -8,7 +8,7 @@
         <b-button class="btn-success btn-sm">
           <b-icon-pencil-fill> </b-icon-pencil-fill>
         </b-button>
-        <b-button class="btn-info btn-sm" v-b-tooltip.bottom title="Show Client Info">
+        <b-button class="btn-info btn-sm" v-b-tooltip.bottom title="Show Client Info" @click="getClientInfo(row.item.id)">
           <b-icon-person-badge>
           </b-icon-person-badge>
         </b-button>
@@ -17,6 +17,8 @@
   <add-new-client>
 
   </add-new-client>
+    <b-table :items="this.info"  :fields="this.infoFields">
+    </b-table>
   </b-container>
 </template>
 <script>
@@ -32,7 +34,9 @@ export default {
     return {
       fields: ['id','name', "sirName","Actions"],
       clients:[
-      ]
+      ],
+      info:[],
+      infoFields: ['id','username','type','date']
     }
   },methods: {
     addNewClient() {
@@ -53,6 +57,16 @@ export default {
           let delClient = clients.find((o) => o.id == response.id);
           clients.splice(clients.indexOf(delClient),1);
         })
+    },getClientInfo(id){
+      this.info = [];
+      let info = this.info;
+      axios.get("api/v1/appoitnment/client/" + id).then( function (response) {
+        console.log(response)
+        for (let x in response.data) {
+          // console.log(x)
+          info.push(response.data[x])
+        }
+      })
     }
 
   },async beforeMount() {
