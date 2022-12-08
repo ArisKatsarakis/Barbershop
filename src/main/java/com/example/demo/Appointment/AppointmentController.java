@@ -79,4 +79,9 @@ public class AppointmentController {
     public List<Clients> getAllClients(){
         return clientService.getAllClients();
     }
+
+    @DeleteMapping("client/delete/{id}")
+    public Optional<Clients> deleteClient(@PathVariable("id") Long id) {
+        return clientService.deleteClient(id);
+    }
 }

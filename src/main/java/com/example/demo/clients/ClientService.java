@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.Entity;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -21,5 +22,11 @@ public class ClientService {
 
     public List<Clients> getAllClients() {
        return  clientRepository.findAll();
+    }
+
+    public Optional<Clients> deleteClient(Long id) {
+        Optional<Clients> deleted = clientRepository.findById(id);
+        clientRepository.deleteById(id);
+        return  deleted;
     }
 }
