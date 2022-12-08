@@ -8,6 +8,10 @@
         <b-button class="btn-success btn-sm">
           <b-icon-pencil-fill> </b-icon-pencil-fill>
         </b-button>
+        <b-button class="btn-info btn-sm" v-b-tooltip.bottom title="Show Client Info">
+          <b-icon-person-badge>
+          </b-icon-person-badge>
+        </b-button>
       </template>
    </b-table>
   <add-new-client>

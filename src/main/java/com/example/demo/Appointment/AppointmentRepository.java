@@ -25,5 +25,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
         @Modifying
         @Query("update Appointment s set s.Username = ?2 , s.date=?3, s.time=?4, s.type=?5 where s.id = ?1")
         void updateAppointmentById(long appointmentId, String username, LocalDate date, LocalTime time, String type);
+
+
+        @Query("select s from Appointment s where s.clientId = ?1")
+        List<Appointment> getAppointmentsByClient(Long id);
 //    List<Appointment> findAppointmentByUsername(String username);
 }
