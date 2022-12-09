@@ -9,6 +9,10 @@
           <b-nav-item href="/clients">Clients</b-nav-item>
 
         </b-navbar-nav>
+        <b-navbar-nav class="justify-content-end"  style="margin-left: 10px">
+          <b-nav-item href="/barbers">Barbers</b-nav-item>
+
+        </b-navbar-nav>
       </b-navbar>
     </b-container>
     <router-view>

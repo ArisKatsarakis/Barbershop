@@ -4,7 +4,7 @@ import {BootstrapVue, BootstrapVueIcons, IconsPlugin} from "bootstrap-vue";
 import VueRouter from "vue-router";
 import AppointmentTable from "@/components/AppointmentTable";
 import CliendsView from "@/components/CliendsView";
-
+import BarberView from "@/components/BarberView";
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue);
@@ -16,7 +16,8 @@ const router = new VueRouter({
     base: __dirname,
     routes: [
         {path: '/clients', component: CliendsView},
-        {path: "/", component: AppointmentTable}
+        {path: "/", component: AppointmentTable},
+        {path: "/barbers", component: BarberView}
 
 
     ]

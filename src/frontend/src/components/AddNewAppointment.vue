@@ -115,7 +115,7 @@ export default {
     return {
       form: {
         username: '',
-        date: this.setDate,
+        date: new Date(this.setDate),
         time: this.setTime,
         type: '',
         barberId:this.setBarber,

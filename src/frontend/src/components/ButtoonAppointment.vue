@@ -5,7 +5,7 @@
       </b-button>
 
     <add-new-appointment
-        v-bind:set-date="set_Date"
+        v-bind:set-date="setDate"
         v-bind:set-time="timeslot"
         v-bind:set-barber="barber"
         @update-app="returnAppointment"
@@ -19,7 +19,7 @@ export default {
   name: "ButtoonAppointment",
   props: {
     timeslot: String,
-    set_Date: String,
+    setDate: String,
     barber: Number
 
   },
