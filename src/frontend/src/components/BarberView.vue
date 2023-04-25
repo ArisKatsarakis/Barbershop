@@ -14,7 +14,9 @@ export default {
   name: "BarberView",
   data() {
     return  {
-      barbers: []
+      barbers: [],
+      fields:[]
+
     }
   },methods: {
 
