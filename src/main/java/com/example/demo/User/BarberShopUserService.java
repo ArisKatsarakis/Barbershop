@@ -29,6 +29,6 @@ public class BarberShopUserService {
         );
 
         if (authenttincatedUser[0] ==  null) { return new ResponseEntity<>("Wrong Password", HttpStatus.OK);}
-        else {return new ResponseEntity<>("Singed In", HttpStatus.OK);}
+        else {return new ResponseEntity<>("Signed In", HttpStatus.OK);}
     }
 }

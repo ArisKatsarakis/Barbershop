@@ -7,6 +7,8 @@ export const LoginForm = () => {
     const [message, setMessage] = React.useState();
     const navigate = useNavigate();
 
+
+
     const  handleSubmit = async (e) => {
         e.preventDefault();
         console.log(username, password);
@@ -19,8 +21,7 @@ export const LoginForm = () => {
          const request  = await axios.post(`http://localhost:8080/api/v1/authenticate?username=${username}&password=${password}`,null,config);
         console.log(request);
         setMessage(request.data.toString());
-        navigate("/dashboard");
-        if (message === 'Signed In') {}
+        if(message === undefined) {navigate('/dashboard');}
 
 
 
