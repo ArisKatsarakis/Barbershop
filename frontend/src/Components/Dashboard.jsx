@@ -1,7 +1,21 @@
-import {RendevouzTable} from "./RendevouzTable";
 import {CreateBarber} from "./CreateBarber";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {BarbersAppointmentTable} from "./BarbersAppointmentTable";
 
-export const Dashboard = () => {
+export const Dashboard =  () => {
+    const [barbers, setBarbers] = useState([]);
+    useEffect( () => {
+        async function getBarbers() {
+            const barbersResponse = await axios.get('http://localhost:8080/api/v1/barber');
+            console.log(barbersResponse.data);
+            setBarbers(barbersResponse.data);
+        }
+        getBarbers();
+        console.log(barbers);
+
+    }, [])
+
     return (
         <>
             <h1>
@@ -11,7 +25,7 @@ export const Dashboard = () => {
                 <CreateBarber/>
             </div>
             <div>
-                <RendevouzTable />
+                <BarbersAppointmentTable barbers={barbers} />
             </div>
         </>
     )
