@@ -13,10 +13,8 @@ import java.util.Optional;
 @RequestMapping(path = "api/v1")
 public class AppointmentController {
     private final AppointmentService appService;
-    private final BarberService barberService;
     @Autowired
-    public AppointmentController(AppointmentService appSerivce, BarberService barberService){
-        this.barberService = barberService;
+    public AppointmentController(AppointmentService appSerivce){
         this.appService = appSerivce;
     }
     @GetMapping
@@ -47,25 +45,15 @@ public class AppointmentController {
         return appService.getAppointmentBydate(appointment.getDate());
     }
 
-    @CrossOrigin
-    @GetMapping("/barber")
-    public List<Barber> getBarbers(){
-        return barberService.getBarbers();
-    }
-
-    @CrossOrigin
-    @PostMapping("/barber")
-    public void newBarber(@RequestBody Barber barber){
-        barberService.addNewBarber(barber);
-    }
-
     @DeleteMapping("appointment/delete/{id}")
     public Optional<Appointment> deletAppointmentById(@PathVariable("id") long appointmentId){
         return appService.deleteAppoitnmentById(appointmentId);
     }
+
     @CrossOrigin
     @GetMapping("appointments/barber/{id}")
     public List<Appointment> getAppointmentsByBarber(@PathVariable("id") long barberID){
         return appService.getAppointmentsByBarber(barberID);
     }
+
 }
