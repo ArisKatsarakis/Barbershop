@@ -1,6 +1,5 @@
 import {Button, Modal, Form} from "react-bootstrap";
 import axios from "axios";
-
 import {useState} from "react";
 
 export const CreateBarber = () => {
@@ -8,6 +7,7 @@ export const CreateBarber = () => {
     const [barberName, setBarberName] = useState();
     const handleShow = () => {setShow(true)};
     const handleClose = () => {setShow(false)};
+
     const barberNameInputHandler = (e) => {
         e.preventDefault();
         setBarberName(e.target.value);
@@ -19,6 +19,10 @@ export const CreateBarber = () => {
             name: barberName
         });
         console.log(request);
+        handleClose();
+        window.location.reload(false);
+
+
     }
     return (
         <>
