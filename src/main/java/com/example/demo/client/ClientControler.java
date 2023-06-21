@@ -25,4 +25,10 @@ public class ClientControler {
     public void createClient(@RequestBody Client newClient) {
          clientService.createClient(newClient);
     }
+
+    @GetMapping("/clients/{id}")
+    public Optional<Client> getClientsById(@PathVariable("id") Long clientsId) {
+        return clientService.getClientById(clientsId);
+    }
+
 }

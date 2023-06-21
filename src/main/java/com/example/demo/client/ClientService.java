@@ -23,4 +23,8 @@ public class ClientService {
         serviceLogger.info(newClient.toString());
         clientRepository.save(newClient);
     }
+
+    public Optional<Client> getClientById(Long clientsId) {
+        return clientRepository.findById(clientsId);
+    }
 }
