@@ -8,7 +8,7 @@ import java.util.Optional;
 @Service
 public class ClientService {
 
-    private ClientRepository clientRepository;
+    private static ClientRepository clientRepository;
     private static final Logger serviceLogger = LoggerFactory.getLogger(ClientService.class);
 
     public ClientService(ClientRepository clientRepository) {
@@ -24,7 +24,7 @@ public class ClientService {
         clientRepository.save(newClient);
     }
 
-    public Optional<Client> getClientById(Long clientsId) {
+    public static Optional<Client> getClientById(Long clientsId) {
         return clientRepository.findById(clientsId);
     }
 }

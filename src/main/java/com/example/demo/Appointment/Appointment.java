@@ -1,5 +1,6 @@
 package com.example.demo.Appointment;
 
+import com.example.demo.barbers.Barber;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,38 +22,38 @@ public class Appointment {
             generator = "appointment_sequence"
     )
     private Long id;
-    private Long BarberId;
+
+    private Long barberId;
     private LocalDate date;
     private LocalTime time;
     private String type;
-    private String Username;
+    private Long customerId;
 
     public Appointment() {
     }
 
-    public Appointment(Long id, Long userid, LocalDate date, LocalTime time, String type, String username) {
-        this.id = id;
+    public Appointment(Long barberId, LocalDate date, LocalTime time, String type, Long customerId) {
+        barberId = barberId;
         this.date = date;
         this.time = time;
         this.type = type;
-        Username = username;
-        BarberId = userid;
+        this.customerId = customerId;
     }
 
-    public Appointment(Long userid, LocalDate date, LocalTime time, String type, String username) {
-        BarberId = userid;
-        this.date = date;
-        this.time = time;
-        this.type = type;
-        Username = username;
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public Long getBarberId() {
-        return BarberId;
+        return barberId;
     }
 
-    public void setBarberId(Long barberId) {
-        BarberId = barberId;
+    public void setBarberId(Long BarberId) {
+        barberId = BarberId;
     }
 
     public Long getId() {
@@ -88,23 +89,17 @@ public class Appointment {
         this.type = type;
     }
 
-    public String getUsername() {
-        return Username;
-    }
 
-    public void setUsername(String username) {
-        Username = username;
-    }
 
     @Override
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", Userid=" +  BarberId +
+                ", Barber_id=" +  barberId +
                 ", date=" + date +
                 ", time=" + time +
                 ", type='" + type + '\'' +
-                ", Username='" + Username + '\'' +
+                ", Customer_id=" + customerId +
                 '}';
     }
 }

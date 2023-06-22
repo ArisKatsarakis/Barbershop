@@ -1,13 +1,13 @@
 package com.example.demo.Appointment;
 
-import com.example.demo.barbers.Barber;
-import com.example.demo.barbers.BarberService;
+import com.example.demo.client.Client;
+import com.example.demo.client.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping(path = "api/v1")
@@ -17,43 +17,41 @@ public class AppointmentController {
     public AppointmentController(AppointmentService appSerivce){
         this.appService = appSerivce;
     }
-    @GetMapping
+    @GetMapping("/appointment")
     public List<Appointment> getStudents() {
         return appService.getAppointments();
     }
 
     @PostMapping("/appointment")
+    @CrossOrigin
     public void makeNewAppointment(@RequestBody Appointment appointment){
         appService.addNewAppointment(appointment);
 
     }
 
-    @PutMapping("/appointment/{id}")
-    public Optional<Appointment> updateAppointment(@PathVariable("id") long appointmentId , @RequestBody Appointment appointment){
-        return appService.updateAppointment(appointmentId,appointment);
-    }
-
-    @GetMapping( path = "appointment/{username}")
-    public List<Appointment> getAppointmentByUsername(@PathVariable("username") String username){
-        System.out.println(username);
-        return appService.getAppointByUsername(username);
-    }
-
     @CrossOrigin
-    @PostMapping(path = "appointment/date")
-    public List<Appointment> getAppointmentByDate(@RequestBody Appointment appointment){
-        return appService.getAppointmentBydate(appointment.getDate());
+    @GetMapping("/appointment/{id}")
+    public ResponseEntity<List<Object>> getAppointsByBarbersID(@PathVariable("id") Long barberId) {
+        List<Object> listOfAppointments = new ArrayList<>();
+
+        List<Appointment> appointmentsFetched = appService.getAppointmentsByBarberId(barberId);
+        appointmentsFetched.stream().forEach(
+                appointment -> {
+                    Map<String,Object> result = new HashMap<String, Object>();
+                    Optional<Client> client = ClientService.getClientById(appointment.getCustomerId());
+                    AtomicReference<String> clientsName = new AtomicReference<>("");
+                    client.ifPresent(cli -> clientsName.set(cli.getFirstName() + " " + cli.getLastName()));
+                    result.put("time",appointment.getTime());
+                    result.put("type",appointment.getType());
+                    result.put("customer",clientsName);
+                    result.put("barberId",appointment.getBarberId());
+                    listOfAppointments.add(result);
+                }
+        );
+
+        return ResponseEntity.ok(listOfAppointments);
+
     }
 
-    @DeleteMapping("appointment/delete/{id}")
-    public Optional<Appointment> deletAppointmentById(@PathVariable("id") long appointmentId){
-        return appService.deleteAppoitnmentById(appointmentId);
-    }
-
-    @CrossOrigin
-    @GetMapping("appointments/barber/{id}")
-    public List<Appointment> getAppointmentsByBarber(@PathVariable("id") long barberID){
-        return appService.getAppointmentsByBarber(barberID);
-    }
 
 }

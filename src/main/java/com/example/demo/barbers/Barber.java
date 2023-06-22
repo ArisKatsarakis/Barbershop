@@ -20,6 +20,7 @@ public class Barber {
             strategy = GenerationType.SEQUENCE,
             generator = "barber_sequence"
     )
+    @Column(name = "barber_id")
     private long id;
     private String name;
     public long getId() {

@@ -1,5 +1,7 @@
 package com.example.demo.Appointment;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,12 @@ import java.util.Optional;
 @Service
 public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
+    private    Logger serviceLogger;
 
     @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
+        this.serviceLogger = LoggerFactory.getLogger(AppointmentService.class);
     }
 
     public  List<Appointment> getAppointments(){
@@ -21,44 +25,13 @@ public class AppointmentService {
     }
 
     public void addNewAppointment(Appointment appointment) {
+        serviceLogger.info(appointment.toString());
         appointmentRepository.save(appointment);
     }
-    public List<Appointment> getAppointByUsername(String username){
-       return appointmentRepository.findByUsername(username);
-    }
 
-    public List<Appointment> getAppointmentBydate(LocalDate newDate) {
-        return appointmentRepository.findbyDate(newDate);
-    }
+    public List<Appointment> getAppointmentsByBarberId(Long barberId) {
+        serviceLogger.info("We are fetching appointmets for Barber with id" + barberId);
+       return  appointmentRepository.findByBarberId(barberId);
 
-    public Optional<Appointment> updateAppointment(long appointmentId, Appointment updatedAppointment) {
-        return appointmentRepository.findById(appointmentId).map(
-                appointment1 -> {
-                    if(updatedAppointment.getDate() != null){
-                        appointment1.setDate(updatedAppointment.getDate());
-                    }
-                    if(updatedAppointment.getUsername() != null){
-                        appointment1.setUsername(updatedAppointment.getUsername());
-                    }
-                    if(updatedAppointment.getTime() != null){
-                        appointment1.setTime(updatedAppointment.getTime());
-                    }
-                    if(updatedAppointment.getType() != null){
-                        appointment1.setType(updatedAppointment.getType());
-                    }
-                    return appointmentRepository.save(appointment1);
-                }
-        );
-    }
-
-    public Optional<Appointment> deleteAppoitnmentById(long appointmentId) {
-       Optional<Appointment>  findAppointment = appointmentRepository.findById(appointmentId);
-        appointmentRepository.delete(findAppointment.get());
-        return  findAppointment;
-    }
-
-    public List<Appointment> getAppointmentsByBarber(long barberID) {
-
-        return appointmentRepository.getAppointmentByBarber(barberID);
     }
 }
