@@ -6,7 +6,13 @@ import {CreateClientButton} from "./CreateClientButton";
 import axios, {get} from "axios";
 
 export class AppointmentButton extends Component {
+    handleSubmit = async  (event) => {
+        event.preventDefault();
+        console.log(this.state.client, this.state.timeslot, this.state.hairCutSelected, this.props.barbersId);
 
+        const response = await this.createAppointment( this.state.client, this.state.timeslot, this.state.hairCutSelected, this.props.barbersId);
+        window.location.reload(false);
+    }
      generateTimeSlots = () => {
         const today = DateTime.now();
         const timeSlots = [];
@@ -47,6 +53,24 @@ export class AppointmentButton extends Component {
             client: 0,
             timeSlots: [],
             currentClients: [],
+            hairCutSelected: 0,
+            hairCutTypes: [
+                {
+                    id: 1,
+                    name: 'Mallia',
+                    cost: 10
+                },
+                {
+                    id: 1,
+                    name: 'Mallia kai mousia',
+                    cost: 20
+                },
+                {
+                    id: 1,
+                    name: 'Mousia',
+                    cost: 10
+                }
+            ]
         }
 
 
@@ -110,15 +134,37 @@ export class AppointmentButton extends Component {
                                 </Form.Select>
                                 <CreateClientButton  />
                             </Form.Group>
-                            
-
-
+                            <Form.Group>
+                                <Form.Label>Product List</Form.Label>
+                                <Form.Select className={'mb-2'} aria-label="Default select example" value={this.hairCutSelected} onChange={ event => this.setState({
+                                    hairCutSelected: event.target.value
+                                })}>
+                                    <option value={0}> Choose Product/Hair Cut</option>
+                                    {this.state.hairCutTypes.map(
+                                        hairCut => <option value={hairCut.name}> {hairCut.name}  </option>
+                                    )}
+                                </Form.Select>
+                            </Form.Group>
+                            <Button onClick={this.handleSubmit}  type={'submit'} variant={'success'}>Create Appointment</Button>
                         </Form>
                         <Button onClick={this.handleClose} variant={'danger'}>Close</Button>
                     </Modal.Body>
                 </Modal>
             </>
         )
+    }
+
+    createAppointment = async (client, timeslot, hairCutSelected, barbersId) =>  {
+        const appointmentDate = DateTime.now();
+        const payload = {
+            barberId:barbersId,
+            customerId: parseInt(client),
+            date:appointmentDate.toFormat('yyyy-MM-dd'),
+            time:timeslot,
+            type: hairCutSelected,
+        };
+       return   axios.post('http://localhost:8080/api/v1/appointment',payload);
+
     }
 }
 

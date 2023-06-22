@@ -1,70 +1,70 @@
 import {Table} from "react-bootstrap";
 import {AppointmentButton} from "./AppointmentButton";
+import {Component} from "react";
+import axios from "axios";
+export class RendevouzTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ravdevouz : []
+        };
+        console.log('This is the Barber\'s id : ' +  this.props.barberId);
 
+    }
 
-export const RendevouzTable = (props) => {
-    const ravdevouz = [
-        {
-            customer: "Aris Katsarakis",
-            time: "20:00",
-            type: "Mallia",
-        },
-        {
-            customer: "George Katsarakis",
-            time: "20:30",
-            type: "Mousia",
-        }
-    ];
-    console.log('This is the Barber\'s id : ' +  props.barberId);
-    return (
-        <>
-            <Table striped borderless hover>
-                <thead>
-                <tr>
-                    <th>
-                        Time
-                    </th>
-                    <th>
-                        Customer
-                    </th>
-                    <th>
-                        Haircut's Type
-                    </th>
-                </tr>
-                </thead>
-                <tr>
-                    <th scope={'row'}>
+    async componentDidMount() {
+        const barbersAppointment = await this.getAppointmentsByBarberId(this.props.barberId);
+        this.setState({
+                ravdevouz: barbersAppointment.data,
 
-                    </th>
-                    <td>
-                        Customer's Name
-                    </td>
-                    <td>
-                        Mallia/Mousia
-                    </td>
-                </tr>
-                <tbody>
-                {ravdevouz.map(
-                    rand =>
-                        <tr>
-                            <th scope={'row'}>
-                                {rand.time}
-                            </th>
-                            <td>
-                                {rand.customer}
-                            </td>
-                            <td>
-                                {rand.type}
-                            </td>
-                        </tr>
-                )}
-                <tr>
-                    <td colSpan={3}>
-                        <AppointmentButton barbersName={props.barbersName} barbersId={props.barberId}/>
-                    </td>
-                </tr>
-                </tbody>
-            </Table>
-        </>
-    )
+            }
+        )
+    }
+
+    getAppointmentsByBarberId = async (barberId) => {
+        return axios.get(`http://localhost:8080/api/v1/appointment/${barberId}`);
+    }
+    render() {
+        return (
+            <>
+                <Table striped borderless hover>
+                    <thead>
+                    <tr>
+                        <th>
+                            Time
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            Haircut's Type
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.ravdevouz.map(
+                        rand =>
+                            <tr>
+                                <th scope={'row'}>
+                                    {rand.time}
+                                </th>
+                                <td>
+                                    {rand.customer}
+                                </td>
+                                <td>
+                                    {rand.type}
+                                </td>
+                            </tr>
+                    )}
+                    <tr>
+                        <td colSpan={3}>
+                            <AppointmentButton barbersName={this.props.barbersName} barbersId={this.props.barberId}/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
+            </>
+        )
+    }
+
 }
