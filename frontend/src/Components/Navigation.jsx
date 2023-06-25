@@ -23,6 +23,11 @@ export const Navigation = () => {
                         Products
                     </Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="4" href='/orders'>
+                        Orders
+                    </Nav.Link>
+                </Nav.Item>
             </Nav>
         </>
     )
