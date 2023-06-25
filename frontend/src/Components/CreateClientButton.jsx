@@ -1,6 +1,6 @@
 import {Modal, Button, Form} from "react-bootstrap";
 import {useState} from "react";
-
+import axios from "axios";
 export const CreateClientButton = () => {
     const [show, setShow] = useState(false);
     const [clientsName, setClientsName] = useState('');
@@ -9,9 +9,22 @@ export const CreateClientButton = () => {
     const [clientsAddress, setClientsAddress] = useState('');
     const handleShow = () => {setShow(true);}
     const handleClose = () => {setShow(false);}
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(clientsName, clientsLastName, clientsPhone, clientsAddress);
+        const payload = {
+            firstName:  clientsName,
+            lastName: clientsLastName,
+            phone: clientsPhone,
+            address: clientsAddress,
+        };
+        await createClientApi(payload);
         handleClose();
+        window.location.reload(false);
+
+    }
+    const createClientApi = (payload) => {
+        return axios.post('http://localhost:8080/api/v1/clients', payload);
     }
 
     return (

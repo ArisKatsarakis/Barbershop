@@ -2,6 +2,7 @@ import {CreateBarber} from "./CreateBarber";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {BarbersAppointmentTable} from "./BarbersAppointmentTable";
+import {Navigation} from "./Navigation";
 
 export const Dashboard =  () => {
     const [barbers, setBarbers] = useState([]);
@@ -18,6 +19,7 @@ export const Dashboard =  () => {
 
     return (
         <>
+            <Navigation/>
             <h1>
                 Dashboard
             </h1>

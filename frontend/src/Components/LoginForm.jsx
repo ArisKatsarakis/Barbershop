@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Navigation} from "./Navigation";
 export const LoginForm = () => {
     const [username, setUsername] = React.useState();
     const [password, setPassword] = React.useState();
@@ -37,6 +38,8 @@ export const LoginForm = () => {
     }
     return (
         <>
+
+            <Navigation/>
             <h1>Login Page</h1>
             <form method={"POST"} onSubmit={handleSubmit} className={"login-form form-control"}>
                 <label htmlFor={"username"} className={"form-label"}>Username: </label>
