@@ -4,6 +4,10 @@ INSERT INTO Appointment (id, customer_id, barber_id, time, date, type) values (1
 INSERT INTO Appointment (id, customer_id, barber_id, time, date, type) values (2,1,1, '20:00', '2022-06-11', 'Mallia');
 INSERT into Barber (barber_id, name) VALUES (1, 'Mixalis');
 INSERT into Client (id, address, first_name, last_name, phone) values(1,'Tassou Issak 4', 'Aris', 'Katsarakis', '+30 6943286435' );
+INSERT into Client (id, address, first_name, last_name, phone) values(2,'Tassou Issak 15', 'Giorgos', 'Kostomanolakis', '+30 6932475874' );
 INSERT INTO PRODUCTS(product_id, name, cost, type) VALUES (1, 'Mallia',10, 'Haircut');
 INSERT INTO PRODUCTS(product_id, name, cost, type) VALUES (2, 'Mallia & Mousia',15, 'Haircut');
 INSERT INTO PRODUCTS(product_id, name, cost, type) VALUES (3, 'Mousia',5, 'Haircut');
+INSERT INTO sales_order(order_id, customer_id, total_cost) VALUES (1, 1, 0);
+INSERT INTO sales_order(order_id, customer_id, total_cost) VALUES (2, 1, 0);
+INSERT INTO sales_order(order_id, customer_id, total_cost) VALUES (3, 2, 0);
