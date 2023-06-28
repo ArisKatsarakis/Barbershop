@@ -2,6 +2,7 @@ import {Component} from 'react'
 import {Navigation} from "./Navigation";
 import {Table} from "react-bootstrap";
 import axios from "axios";
+import {CreateProductButton} from "./CreateProductButton";
 
 export class Products extends Component {
 
@@ -29,7 +30,7 @@ export class Products extends Component {
             <>
                 <Navigation />
                 <h2>Products</h2>
-                <Table dark bordeed striped>
+                <Table variant={'dark stripped bordered'}>
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -52,6 +53,9 @@ export class Products extends Component {
                                 </tr>
                         )
                     }
+                    <tr>
+                        <td colSpan={5}><CreateProductButton /></td>
+                    </tr>
                     </tbody>
 
                 </Table>
