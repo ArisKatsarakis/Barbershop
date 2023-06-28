@@ -30,7 +30,7 @@ public class AppointmentController {
     }
 
     @CrossOrigin
-    @GetMapping("/appointment/{id}")
+    @GetMapping("/appointment/barbers/{id}")
     public ResponseEntity<List<Object>> getAppointsByBarbersID(@PathVariable("id") Long barberId) {
         List<Object> listOfAppointments = new ArrayList<>();
 

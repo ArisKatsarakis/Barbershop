@@ -45,4 +45,8 @@ public class OrderService {
         );
         return foundOrder;
     }
+
+    public List<SalesOrder> getOrderByCustomerId(long id) {
+        return orderRepository.findByCustomerId(id);
+    }
 }
