@@ -41,5 +41,11 @@ public class OrderController {
         return orderService.addProductsToOrder(id, productSet);
     }
 
+    @GetMapping("/orders/customers/{customerId}")
+    @CrossOrigin
+    public List<SalesOrder> getOrderByCustomerId(@PathVariable("customerId") long id) {
+        return orderService.getOrderByCustomerId(id);
+    }
+
 
 }
