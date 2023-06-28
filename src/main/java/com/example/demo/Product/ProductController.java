@@ -1,9 +1,6 @@
 package com.example.demo.Product;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +18,12 @@ public class ProductController {
     @CrossOrigin
     public List<Product> getProducts() {
         return productService.getProducts();
+    }
+
+    @PostMapping("/products")
+    @CrossOrigin
+    public void createProduct(@RequestBody Product newProduct) {
+        productService.addNewProduct(newProduct);
     }
 
 }

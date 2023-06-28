@@ -1,8 +1,9 @@
 package com.example.demo.Product;
 
-import com.example.demo.Order.Order;
+import com.example.demo.Order.SalesOrder;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Table(name = "PRODUCTS")
 @Entity
@@ -14,7 +15,8 @@ public class Product {
         allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
+            strategy = GenerationType.AUTO,
+
             generator = "product_sequence"
     )
     @Column(name="product_ID")
@@ -23,9 +25,8 @@ public class Product {
     private Float cost;
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = true)
-    private Order order;
+    @ManyToMany( mappedBy = "Products")
+    private Set<SalesOrder> salesOrder;
     public Product() {}
 
     public Product(String name, Float cost, String type) {
